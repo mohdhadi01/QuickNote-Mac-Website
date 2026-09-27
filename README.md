@@ -4,13 +4,13 @@
 
 # QuickNote, Website
 
-**The marketing site for [QuickNote](https://github.com/mohdhadi01/QuickNote)**,
+**The marketing site for [QuickNote](https://github.com/mohdhadi01/QuickNote-Mac)**,
 a native macOS instant-notes utility. Built with Next.js, statically exported,
 zero trackers.
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://github.com/mohdhadi01/QuickNote-Website)
-[![Static export](https://img.shields.io/badge/Output-static_%2Fout-blue)](https://github.com/mohdhadi01/QuickNote-Website)
-[![Get the app](https://img.shields.io/badge/⬇_Get_QuickNote-DMG-4a56d6)](https://github.com/mohdhadi01/QuickNote/releases/latest)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://github.com/mohdhadi01/QuickNote-Mac-Website)
+[![Static export](https://img.shields.io/badge/Output-static_%2Fout-blue)](https://github.com/mohdhadi01/QuickNote-Mac-Website)
+[![Get the app](https://img.shields.io/badge/⬇_Get_QuickNote-DMG-4a56d6)](https://github.com/mohdhadi01/QuickNote-Mac/releases/latest)
 
 ![QuickNote website, dark theme, full landing page](docs/site-dark.jpg)
 
@@ -20,7 +20,7 @@ The capture panel it advertises, straight from the app:
 
 Every product visual on the site is a **real screenshot of the app**, captured
 with the app's own snapshot tooling and curated demo notes, see the
-[`-quicknote.demoData`](https://github.com/mohdhadi01/QuickNote) hook in the
+[`-quicknote.demoData`](https://github.com/mohdhadi01/QuickNote-Mac) hook in the
 app repo.
 
 </div>
@@ -92,11 +92,11 @@ Pick one:
 - **Netlify / Cloudflare Pages**: build command `npm run build`, publish
   directory `out`.
 - **GitHub Pages**: enable `basePath` in `next.config.ts`
-  (e.g. `"/QuickNote-Website"`), push the `out/` folder to `gh-pages`.
+  (e.g. `"/QuickNote-Mac-Website"`), push the `out/` folder to `gh-pages`.
 
 The DMG ships with the site at `/downloads/QuickNote-1.0.dmg`; the Download
 button links there directly. The canonical copy lives in the app repo's
-[Releases](https://github.com/mohdhadi01/QuickNote/releases/latest).
+[Releases](https://github.com/mohdhadi01/QuickNote-Mac/releases/latest).
 
 ## SEO checklist (what's already wired)
 
