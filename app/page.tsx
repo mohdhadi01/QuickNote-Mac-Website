@@ -247,7 +247,7 @@ export default function Home() {
                 </li>
                 <li className="reveal" style={d("0.06s")}>
                   <span className="tick">✓</span>
-                  <div><strong>Lives in the menu bar</strong><span>Optional launch at login, silent, no window, just ready.</span></div>
+                  <div><strong>Lives in the menu bar</strong><span>Optional launch at login, offered on first launch. Silent afterwards.</span></div>
                 </li>
                 <li className="reveal" style={d("0.12s")}>
                   <span className="tick">✓</span>
