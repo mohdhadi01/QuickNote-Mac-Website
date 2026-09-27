@@ -123,6 +123,14 @@ All product visuals come from the app repo (`../QuickNote`):
 
 Copy the PNGs from the app's temp `quicknote-snapshots/` directory into
 `public/assets/screenshots/` (names in `content/screenshots-MANIFEST.md`).
+The two empty capture panels come out of the driver at 920×264 and must be
+normalized to 920×420 to match the typed panel (otherwise the hero renders
+half empty). From the app repo:
+
+```
+cp ~/Library/Containers/com.quicknote.app/Data/tmp/quicknote-snapshots/capture-empty-*.png /tmp/
+swift Scripts/extend-capture.swift /tmp/capture-empty-light.png /tmp/capture-empty-dark.png
+```
 After a new app release, bump the `version` line in the tap repo
 (`mohdhadi01/homebrew-tap`) so brew picks it up.
 
