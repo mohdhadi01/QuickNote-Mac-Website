@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Theme cycling (system → light → dark) + scroll/reveal/hero observers.
  * All visuals start in their static, no-JS state; this component upgrades them.
  */
 export function ClientEffects() {
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -78,9 +80,12 @@ export function ClientEffects() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Reveal on scroll.
+  // Reveal on scroll. Re-runs on every route change: client-side navigation
+  // renders fresh .reveal nodes that a one-shot observer would never see,
+  // leaving them invisible at opacity 0.
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll(".reveal"));
+    document.documentElement.classList.add("js");
+    const els = Array.from(document.querySelectorAll(".reveal:not(.in-view)"));
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced || !("IntersectionObserver" in window)) {
       els.forEach((el) => el.classList.add("in-view"));
@@ -99,9 +104,10 @@ export function ClientEffects() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
-  // Hero loop: run only while the stage is on screen.
+  // Hero loop: run only while the stage is on screen. Re-gated per route so
+  // returning to the landing page re-arms the animation on the fresh stage.
   useEffect(() => {
     const stage = document.getElementById("hero-stage");
     if (!stage) return;
@@ -115,7 +121,7 @@ export function ClientEffects() {
     );
     io.observe(stage);
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
