@@ -1,11 +1,45 @@
-# QuickNote Website
+<div align="center">
 
-Production landing site for QuickNote — a native macOS instant-notes app — built
-with **Next.js (App Router, TypeScript)** and statically exported. No Tailwind,
-no CMS, no trackers: the smoke-glass design is plain CSS in `app/globals.css`.
+<img src="public/assets/icon/icon-256.png" width="88" alt="QuickNote app icon">
+
+# QuickNote — Website
+
+**The marketing site for [QuickNote](https://github.com/mohdhadi01/QuickNote)** —
+a native macOS instant-notes utility. Built with Next.js, statically exported,
+zero trackers.
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://github.com/mohdhadi01/QuickNote-Website)
+[![Static export](https://img.shields.io/badge/Output-static_%2Fout-blue)](https://github.com/mohdhadi01/QuickNote-Website)
+[![Get the app](https://img.shields.io/badge/⬇_Get_QuickNote-DMG-4a56d6)](https://github.com/mohdhadi01/QuickNote/releases/latest)
+
+![QuickNote website, light theme — full landing page](docs/site-light.jpg)
+
+![QuickNote website, dark theme — hero with the capture demo](docs/site-dark.jpg)
+
+Every product visual on the site is a **real screenshot of the app**, captured
+with the app's own snapshot tooling and curated demo notes — see the
+[`-quicknote.demoData`](https://github.com/mohdhadi01/QuickNote) hook in the
+app repo.
+
+</div>
+
+## What's on the site
+
+- **Hero with a looping capture demo** — keycaps press, the glass capture panel
+  appears, a note is typed, Return saves it, and the note appears in the app
+  window (all real screenshots, animated with transform/opacity only).
+- **How it works** — the three-second shortcut → thought → saved story.
+- **Showcase & bento features** — the app's main window plus search, keyboard,
+  multi-select/merge, and drag-and-drop highlights.
+- **Made for Mac, Privacy, Download** — native identity, local-only promise,
+  and the real DMG shipped with the site.
+- **Blog** — four keyword-targeted articles grounded in
+  [product truth](content/product-truth.md).
+
+## Structure
 
 ```
-website/
+.
 ├── app/
 │   ├── layout.tsx            # shared nav/footer, SEO metadata, theme bootstrap
 │   ├── page.tsx              # landing page (hero, how it works, features, privacy, download)
@@ -23,17 +57,17 @@ website/
 ├── lib/
 │   ├── site.ts               # site URL, titles, download path, verification token
 │   └── posts.ts              # markdown loading (gray-matter + marked, build-time only)
-└── public/
-    ├── assets/screenshots/   # real captures from the app (demo notes only)
-    ├── assets/icon/          # app icon exports
-    ├── assets/og/og.png      # 1200×630 social share image
-    └── downloads/QuickNote-1.0.dmg   # the real distributable, served with the site
+├── public/
+│   ├── assets/screenshots/   # real captures from the app (demo notes only)
+│   ├── assets/icon/          # app icon exports
+│   ├── assets/og/og.png      # 1200×630 social share image
+│   └── downloads/QuickNote-1.0.dmg   # the real distributable, served with the site
+└── scripts/                  # headless-Chrome screenshot QA
 ```
 
 ## Develop
 
 ```
-cd website
 npm install
 npm run dev        # → http://localhost:3000
 ```
@@ -51,16 +85,16 @@ npx serve out      # or: python3 -m http.server -d out 8080
 
 Pick one:
 
-- **Vercel** (native fit): import the repo, root directory `website`. Framework
-  preset Next.js, no other settings. Set `NEXT_PUBLIC_SITE_URL` to your domain.
+- **Vercel** (native fit): import the repo. Framework preset Next.js, no other
+  settings. Set `NEXT_PUBLIC_SITE_URL` to your domain.
 - **Netlify / Cloudflare Pages**: build command `npm run build`, publish
-  directory `website/out`.
-- **GitHub Pages**: enable `basePath` in `next.config.ts` (e.g. `"/quicknote"`),
-  push the `out/` folder to `gh-pages`.
+  directory `out`.
+- **GitHub Pages**: enable `basePath` in `next.config.ts`
+  (e.g. `"/QuickNote-Website"`), push the `out/` folder to `gh-pages`.
 
 The DMG ships with the site at `/downloads/QuickNote-1.0.dmg`; the Download
-button links there directly. If you move hosting of builds (GitHub Releases,
-CDN), update `DOWNLOAD_PATH` in `lib/site.ts`.
+button links there directly. The canonical copy lives in the app repo's
+[Releases](https://github.com/mohdhadi01/QuickNote/releases/latest).
 
 ## SEO checklist (what's already wired)
 
@@ -70,28 +104,28 @@ CDN), update `DOWNLOAD_PATH` in `lib/site.ts`.
 - `/sitemap.xml` (pages + posts) and `/robots.txt` generated at build.
 - JSON-LD: `SoftwareApplication` (home), `Blog` (index), `BlogPosting` +
   `BreadcrumbList` (posts).
-- Blog posts target search keywords; frontmatter `keywords` are optional
-  metadata — rankings come from titles/headings/content, so keep them natural.
 - **Google Search Console**: put your verification token in
-  `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (env var or `lib/site.ts` default), then
-  register the domain and submit `${SITE_URL}/sitemap.xml`.
+  `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (env var or `lib/site.ts` default),
+  then register the domain and submit `${SITE_URL}/sitemap.xml`.
 
-## Updating screenshots
+## Updating screenshots & the DMG
 
-Screenshots are real captures from the app, generated with **curated demo notes
-only** (never real user data). From the **app repo** (`../QuickNote`):
+All product visuals come from the app repo (`../QuickNote`):
 
 ```
+# in the app repo — captures light+dark PNGs with curated demo notes:
 .build/DD/Build/Products/Debug/QuickNote.app/Contents/MacOS/QuickNote \
   -hasCompletedOnboarding 1 -quicknote.demoData -quicknote.inMemoryStore 1 \
   -quicknote.debugSnapshot
 ```
 
-Then copy the PNGs from the app's temp `quicknote-snapshots/` directory into
-`public/assets/screenshots/` using the names in `content/screenshots-MANIFEST.md`.
-The DMG in `public/downloads/` is likewise refreshed from the app repo after
-running `Scripts/MakeDMG.sh` there:
-`cp ../QuickNote/dist/QuickNote-*.dmg public/downloads/QuickNote-1.0.dmg`.
+Copy the PNGs from the app's temp `quicknote-snapshots/` directory into
+`public/assets/screenshots/` (names in `content/screenshots-MANIFEST.md`), and
+refresh the DMG after running `Scripts/MakeDMG.sh` there:
+
+```
+cp ../QuickNote/dist/QuickNote-*.dmg public/downloads/QuickNote-1.0.dmg
+```
 
 ## Editing rules
 
@@ -100,6 +134,6 @@ running `Scripts/MakeDMG.sh` there:
 2. Animations stay `transform`/`opacity` only; keep the
    `prefers-reduced-motion` static fallbacks working.
 3. New blog post = new `.md` file in `content/posts/` (frontmatter: title,
-   description, date, keywords). It appears in the index, sitemap, and RSS-less
-   blog automatically on the next build.
-4. Keep the stack boring: no npm frameworks beyond what's in `package.json`.
+   description, date, keywords). It appears in the index and sitemap on the
+   next build.
+4. Keep the stack boring: no frameworks beyond what's in `package.json`.
