@@ -62,8 +62,7 @@ app repo.
 ├── public/
 │   ├── assets/screenshots/   # real captures from the app (demo notes only)
 │   ├── assets/icon/          # app icon exports
-│   ├── assets/og/og.png      # 1200×630 social share image
-│   └── downloads/QuickNote-1.0.dmg   # the real distributable, served with the site
+│   └── assets/og/og.png      # 1200×630 social share image
 └── scripts/                  # headless-Chrome screenshot QA
 ```
 
@@ -81,7 +80,7 @@ npm run build      # static export → out/
 npx serve out      # or: python3 -m http.server -d out 8080
 ```
 
-`out/` is a fully static site (with the DMG inside), deploy it anywhere.
+`out/` is a fully static site, deploy it anywhere.
 
 ## Deploy
 
@@ -94,9 +93,10 @@ Pick one:
 - **GitHub Pages**: enable `basePath` in `next.config.ts`
   (e.g. `"/QuickNote-Mac-Website"`), push the `out/` folder to `gh-pages`.
 
-The DMG ships with the site at `/downloads/QuickNote-1.0.dmg`; the Download
-button links there directly. The canonical copy lives in the app repo's
-[Releases](https://github.com/mohdhadi01/QuickNote-Mac/releases/latest).
+Installs run through the Homebrew command on the site
+(`mohdhadi01/tap/quicknote`). The DMG's canonical home is the app repo's
+[Releases](https://github.com/mohdhadi01/QuickNote-Mac/releases/latest);
+the cask downloads it from there, so this repo does not ship a binary.
 
 ## SEO checklist (what's already wired)
 
@@ -110,7 +110,7 @@ button links there directly. The canonical copy lives in the app repo's
   `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (env var or `lib/site.ts` default),
   then register the domain and submit `${SITE_URL}/sitemap.xml`.
 
-## Updating screenshots & the DMG
+## Updating screenshots
 
 All product visuals come from the app repo (`../QuickNote`):
 
@@ -122,12 +122,9 @@ All product visuals come from the app repo (`../QuickNote`):
 ```
 
 Copy the PNGs from the app's temp `quicknote-snapshots/` directory into
-`public/assets/screenshots/` (names in `content/screenshots-MANIFEST.md`), and
-refresh the DMG after running `Scripts/MakeDMG.sh` there:
-
-```
-cp ../QuickNote/dist/QuickNote-*.dmg public/downloads/QuickNote-1.0.dmg
-```
+`public/assets/screenshots/` (names in `content/screenshots-MANIFEST.md`).
+After a new app release, bump the `version` line in the tap repo
+(`mohdhadi01/homebrew-tap`) so brew picks it up.
 
 ## Editing rules
 

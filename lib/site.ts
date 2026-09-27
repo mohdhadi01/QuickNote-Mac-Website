@@ -13,7 +13,8 @@ export const SITE_TITLE = "QuickNote, Capture a thought before it disappears";
 export const SITE_DESCRIPTION =
   "QuickNote is a native Mac app that turns one keystroke into a note. Press ⌃⇧Space anywhere, type, hit return, it's saved. Free, fast, and your notes never leave your Mac.";
 
-export const DOWNLOAD_PATH = "/downloads/QuickNote-1.0.dmg";
+export const DOWNLOAD_URL =
+  "https://github.com/mohdhadi01/QuickNote-Mac/releases/latest";
 
 export const DOWNLOAD_VERSION = "1.0";
 

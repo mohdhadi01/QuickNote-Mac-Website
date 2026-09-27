@@ -25,6 +25,7 @@ Legend: ✅ shipped in QuickNote 1.0 · ❌ do not claim
 | Local database, no accounts / sync / network / telemetry | SwiftData `@Model Note`, no networking code, no analytics | ✅ |
 | Native Swift & SwiftUI, macOS 26+, Apple silicon & Intel (universal) | project settings (MACOSX_DEPLOYMENT_TARGET 26.0, ARCHS arm64 + x86_64) | ✅ |
 | ~3 MB download | `dist/QuickNote-1.0.dmg` size at packaging time | ✅ (re-verify on new builds) |
+| `brew install --cask mohdhadi01/tap/quicknote` (primary install path) | public tap repo `mohdhadi01/homebrew-tap`; its postflight strips the Gatekeeper quarantine flag after install | ✅ |
 | "QuickNote isn't notarized yet" + Open Anyway instructions | app signed with Apple Development identity, no notarization ticket | ✅ (remove this line if/when notarized) |
 | Onboarding on first launch | `OnboardingView`, `-quicknote.forceOnboarding` flag | ✅ (shown in-app; not marketed on site) |
 

@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { MacWindow } from "@/components/MacWindow";
+import { CopyCommand } from "@/components/CopyCommand";
 import { DOWNLOAD_VERSION } from "@/lib/site";
 
 const d = (s: string) => ({ "--d": s }) as CSSProperties;
@@ -308,22 +309,22 @@ export default function Home() {
             <p className="download-meta">
               QuickNote {DOWNLOAD_VERSION} · macOS 26 or later · Apple silicon &amp; Intel · ~3 MB · Free
             </p>
-            <a className="btn btn-primary btn-big" href="/downloads/QuickNote-1.0.dmg" download>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5" /><path d="M4.5 17.5V19A1.5 1.5 0 0 0 6 20.5h12a1.5 1.5 0 0 0 1.5-1.5v-1.5" /></svg>
-              Download QuickNote&nbsp;(.dmg)
-            </a>
-            <p className="download-note">Free direct download, nothing to install before the app itself.</p>
+            <CopyCommand command="brew install --cask mohdhadi01/tap/quicknote" />
 
             <ol className="install-steps">
-              <li><strong>Open the DMG</strong> and drag QuickNote to your Applications folder.</li>
               <li>
-                <strong>First launch:</strong> macOS shows a one-time warning
-                (&ldquo;Apple could not verify QuickNote&rdquo;) because the build isn&apos;t
-                notarized yet. Click <em>Done</em>, then open System Settings → Privacy &amp;
-                Security → <em>Open Anyway</em> → <em>Open</em>.
+                <strong>Paste the command in Terminal and press Return.</strong> Homebrew
+                downloads QuickNote, drops it in Applications, and clears the macOS security
+                flag, so it opens with no warnings at all.
               </li>
-              <li><strong>That&apos;s it.</strong> No permissions to grant, set your shortcut in Settings and start capturing.</li>
+              <li><strong>Open QuickNote.</strong> No permissions to grant, nothing to configure first.</li>
+              <li><strong>Press ⌃⇧Space anywhere,</strong> type, hit return. Your first note is saved.</li>
             </ol>
+
+            <p className="download-alt">
+              New to Homebrew? Get it at <a href="https://brew.sh" target="_blank" rel="noopener noreferrer">brew.sh</a>,
+              two minutes, one paste. The command above is the whole install.
+            </p>
           </div>
         </div>
       </section>

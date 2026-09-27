@@ -69,8 +69,8 @@ doing the job it's shaped for. Filing cabinet and pocket notepad.
 
 ## FAQ
 
-**Is QuickNote free?** Yes, it's a free direct download for macOS 26 and later,
-Apple silicon and Intel.
+**Is QuickNote free?** Yes. One command installs it on macOS 26 and later
+(Apple silicon and Intel): `brew install --cask mohdhadi01/tap/quicknote`.
 
 **Can QuickNote read my Apple Notes?** No. It's fully independent, with its own
 local database and no integration with iCloud or Notes.app.
