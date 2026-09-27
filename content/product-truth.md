@@ -1,6 +1,6 @@
 # Product Truth — QuickNote website
 
-Every claim on the website maps to something the app actually does. Use this
+Every claim on the website maps to something the app actually does (source files referenced below live in the QuickNote app repo, `../QuickNote`). Use this
 table when editing copy: if a feature isn't listed here, don't market it.
 
 Legend: ✅ shipped in QuickNote 1.0 · ❌ do not claim

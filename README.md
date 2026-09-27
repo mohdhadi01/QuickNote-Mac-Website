@@ -79,7 +79,7 @@ CDN), update `DOWNLOAD_PATH` in `lib/site.ts`.
 ## Updating screenshots
 
 Screenshots are real captures from the app, generated with **curated demo notes
-only** (never real user data):
+only** (never real user data). From the **app repo** (`../QuickNote`):
 
 ```
 .build/DD/Build/Products/Debug/QuickNote.app/Contents/MacOS/QuickNote \
@@ -87,8 +87,11 @@ only** (never real user data):
   -quicknote.debugSnapshot
 ```
 
-Copy the PNGs from the app's temp `quicknote-snapshots/` directory into
+Then copy the PNGs from the app's temp `quicknote-snapshots/` directory into
 `public/assets/screenshots/` using the names in `content/screenshots-MANIFEST.md`.
+The DMG in `public/downloads/` is likewise refreshed from the app repo after
+running `Scripts/MakeDMG.sh` there:
+`cp ../QuickNote/dist/QuickNote-*.dmg public/downloads/QuickNote-1.0.dmg`.
 
 ## Editing rules
 
