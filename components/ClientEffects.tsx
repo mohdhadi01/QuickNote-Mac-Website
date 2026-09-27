@@ -55,7 +55,7 @@ export function ClientEffects() {
       try {
         localStorage.setItem("qn-theme", next);
       } catch {
-        /* private mode — theme still applies for the session */
+        /* private mode, theme still applies for the session */
       }
       const dark =
         next === "dark" ||
@@ -120,7 +120,7 @@ export function ClientEffects() {
   return null;
 }
 
-/** Nav theme button — dispatches the event ClientEffects listens for. */
+/** Nav theme button, dispatches the event ClientEffects listens for. */
 export function ThemeToggleButton() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);

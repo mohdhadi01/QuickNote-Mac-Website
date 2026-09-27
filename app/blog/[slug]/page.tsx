@@ -97,7 +97,7 @@ export default async function BlogPost({
           <div className="card">
             <p>
               <strong>Put it into practice.</strong>
-              QuickNote {DOWNLOAD_VERSION} is a free download — one keystroke, one note,
+              QuickNote {DOWNLOAD_VERSION} is a free download, one keystroke, one note,
               nothing leaves your Mac.
             </p>
             <a className="btn btn-primary" href="/#download">Get QuickNote for Mac</a>

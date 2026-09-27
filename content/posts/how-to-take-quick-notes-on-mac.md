@@ -1,13 +1,13 @@
 ---
 title: "How to Take Quick Notes on a Mac (Without Losing Your Flow)"
-description: "Five ways to capture a thought on macOS — from Stickies to Apple Notes to a global hotkey app — and why capture-first wins for ideas you'd otherwise lose."
+description: "Five ways to capture a thought on macOS, from Stickies to Apple Notes to a global hotkey app, and why capture-first wins for ideas you'd otherwise lose."
 date: "2026-09-20"
 keywords: "how to take quick notes on mac, quick notes app mac, capture ideas on mac, mac note taking, fast notes mac"
 ---
 
 Ideas don't wait for you to find the right app. You're in the middle of a call,
 someone mentions a book title, and by the time you've found your notes app in the
-Dock, switched spaces, waited for the window to open, and created a new note —
+Dock, switched spaces, waited for the window to open, and created a new note,
 the thought is gone. Or worse: you keep the thought "in your head for a second"
 and lose it for good.
 
@@ -28,7 +28,7 @@ thought, it's the wrong shape.
 
 ## 2. Stickies: fast, but it snowballs
 
-Stickies opens instantly and takes zero setup — which is why people keep using it.
+Stickies opens instantly and takes zero setup, which is why people keep using it.
 The problem is scale. A week of sticky notes is a collage; a month is archaeology.
 There's no search worth the name, no list, no way to organize.
 
@@ -41,7 +41,7 @@ ceremony without benefit.
 ## 4. Terminal one-liners: for the dedicated
 
 Some people `echo "idea" >> ~/notes.txt`. It's fast, it's greppable, and it's a
-great hack — until you want to scan yesterday's thoughts, pin the important one,
+great hack, until you want to scan yesterday's thoughts, pin the important one,
 or read anything on your phone-less Sunday morning. It's a system only an
 engineer could love, and even engineers abandon it.
 
@@ -57,13 +57,13 @@ inbox before the panel closes.
 
 What makes a hotkey-capture workflow stick:
 
-- **It works over anything** — Xcode, a browser, a video call. The shortcut is
+- **It works over anything**, Xcode, a browser, a video call. The shortcut is
   registered at the system level, so it fires in every app.
 - **No setup per note.** You never name anything while capturing. Structure
   (headings, folders, tags) is for when you're in organizing mode, not capturing
   mode.
 - **Zero-permission install.** QuickNote uses the system's global-hotkey API, so
-  it never asks for Accessibility access — you grant it nothing.
+  it never asks for Accessibility access, you grant it nothing.
 - **Everything stays local.** Notes live in a local database on your Mac. No
   account, no sync, no telemetry.
 
@@ -75,12 +75,12 @@ What makes a hotkey-capture workflow stick:
    later than a wall of text.
 3. **Organize on your schedule.** Pin the two or three notes that matter today;
    drag the rest into sections when you feel like it. Never feel obligated.
-4. **Search instead of sorting.** ⌘F in QuickNote filters as you type — the
+4. **Search instead of sorting.** ⌘F in QuickNote filters as you type, the
    honest answer to "do I need folders for everything?" is usually no.
 
 ## FAQ
 
-**Does QuickNote sync with my iPhone?** No — that's the trade for privacy and
+**Does QuickNote sync with my iPhone?** No, that's the trade for privacy and
 simplicity. Notes stay in a local database on your Mac, with no accounts and no
 network access.
 
@@ -88,7 +88,7 @@ network access.
 registers its shortcut with the system's global hotkey API, which requires no
 special permissions.
 
-**What's the default shortcut?** ⌃⇧Space — chosen to avoid conflicts with the
+**What's the default shortcut?** ⌃⇧Space, chosen to avoid conflicts with the
 shortcuts other apps commonly claim. You can change it in Settings.
 
 Capture-first isn't a niche trick. It's the difference between having a notes

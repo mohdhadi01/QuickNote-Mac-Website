@@ -1,4 +1,4 @@
-# Product Truth — QuickNote website
+# Product Truth, QuickNote website
 
 Every claim on the website maps to something the app actually does (source files referenced below live in the QuickNote app repo, `../QuickNote`). Use this
 table when editing copy: if a feature isn't listed here, don't market it.
@@ -11,7 +11,7 @@ Legend: ✅ shipped in QuickNote 1.0 · ❌ do not claim
 | Capture panel drops down anywhere, no Accessibility permission | `QuickCapturePanel` (NSPanel + NSGlassEffectView, non-activating) | ✅ |
 | First line becomes the heading, rest becomes the body | `FlowingTextView` first-line attributed styling | ✅ |
 | Return saves and closes the panel | `CapturePanelController` commit flow | ✅ |
-| "No windows to hunt for" — one-keystroke capture | Same as above | ✅ |
+| "No windows to hunt for", one-keystroke capture | Same as above | ✅ |
 | Notes land in an inbox; list + editor home window | `NotesViewModel`, `NotesListView`, `NoteEditorView`, `SidebarView` (Inbox / All Notes / Pinned / Trash) | ✅ |
 | Search filters as you type (⌘F) | `SearchService`, ⌘F via `MainWindowKeyboardRouter` | ✅ |
 | Pin notes, pin section in sidebar | pin toggling + Pinned section | ✅ |
@@ -30,14 +30,14 @@ Legend: ✅ shipped in QuickNote 1.0 · ❌ do not claim
 
 ## Deliberately NOT claimed
 
-- ❌ iCloud sync / cross-device sync — not implemented.
-- ❌ iPhone / iPad / visionOS versions — macOS only.
-- ❌ Tags, folders, wiki links, attachments, images — not implemented.
-- ❌ Markdown export, printing, sharing extensions — not implemented.
-- ❌ Encryption claims — storage is the system default; don't market security guarantees.
+- ❌ iCloud sync / cross-device sync, not implemented.
+- ❌ iPhone / iPad / visionOS versions, macOS only.
+- ❌ Tags, folders, wiki links, attachments, images, not implemented.
+- ❌ Markdown export, printing, sharing extensions, not implemented.
+- ❌ Encryption claims, storage is the system default; don't market security guarantees.
 - ❌ Windows / Linux versions.
 - ❌ Any pricing other than free (there is no payment flow).
-- ❌ Notarized / "no warnings on open" — currently false.
+- ❌ Notarized / "no warnings on open", currently false.
 
 ## Screenshot integrity
 

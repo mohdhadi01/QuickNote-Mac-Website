@@ -21,7 +21,7 @@ export default function Home() {
             </h1>
             <p className="lede reveal" style={d("0.1s")}>
               QuickNote turns a single keystroke into a note. Press{" "}
-              <span className="kbd-inline">⌃⇧Space</span> anywhere, type, hit return — it&apos;s
+              <span className="kbd-inline">⌃⇧Space</span> anywhere, type, hit return, it&apos;s
               saved and waiting. No windows to hunt for, no account, and nothing ever leaves
               your Mac.
             </p>
@@ -74,17 +74,17 @@ export default function Home() {
           <h2 className="reveal" style={d("0.05s")}>Shortcut. Thought. Saved.</h2>
           <p className="section-lede reveal" style={d("0.1s")}>
             The idea isn&apos;t to write documents. It&apos;s to catch the thought while it&apos;s
-            still there — then get back to whatever you were doing. The whole loop takes three
+            still there, then get back to whatever you were doing. The whole loop takes three
             seconds.
           </p>
 
           <ol className="steps">
             <li className="step card reveal">
               <span className="step-num">01</span>
-              <h3>Press the shortcut — anywhere</h3>
+              <h3>Press the shortcut, anywhere</h3>
               <p>
                 In the middle of a call, deep in Xcode, on any display. A slim glass panel drops
-                over your work. Registered at the system level — no Accessibility permission,
+                over your work. Registered at the system level, no Accessibility permission,
                 ever.
               </p>
               <div className="mini-keys" aria-hidden="true">
@@ -98,7 +98,7 @@ export default function Home() {
               <h3>Just start typing</h3>
               <p>
                 No &quot;new note&quot; button, no title field. The first line becomes the heading
-                and everything after it becomes the body — exactly the way the thought arrived.
+                and everything after it becomes the body, exactly the way the thought arrived.
               </p>
               <div className="mini-note" aria-hidden="true">
                 <span className="mini-note-title">Coffee brewing ratios</span>
@@ -110,7 +110,7 @@ export default function Home() {
               <h3>Hit return. It&apos;s saved.</h3>
               <p>
                 The panel vanishes and the note is already in your inbox. QuickNote sits quietly
-                in the menu bar — optional launch at login keeps it ready all day.
+                in the menu bar, optional launch at login keeps it ready all day.
               </p>
               <div className="mini-saved" aria-hidden="true">
                 <span className="mini-check">✓</span>
@@ -129,7 +129,7 @@ export default function Home() {
             A calm home for quick thoughts.
           </h2>
           <p className="section-lede reveal" style={d("0.1s")}>
-            Captures land in a fast, keyboard-friendly list — organize them when you feel like
+            Captures land in a fast, keyboard-friendly list, organize them when you feel like
             it, or don&apos;t. It&apos;s your inbox, not a project.
           </p>
 
@@ -168,7 +168,7 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-3.8-3.8" /></svg>
               </span>
               <h3>Search that keeps up</h3>
-              <p>Filter every note as you type. Hit <span className="kbd-inline">⌘F</span> and the list narrows with every keystroke — no search page, no waiting.</p>
+              <p>Filter every note as you type. Hit <span className="kbd-inline">⌘F</span> and the list narrows with every keystroke, no search page, no waiting.</p>
               <div className="mini-search" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-3.8-3.8" /></svg>
                 <span>brewing</span>
@@ -188,7 +188,7 @@ export default function Home() {
                   Ship the about page
                   <span className="dim">Pinned</span>
                 </span>
-                <span className="mini-row">Book notes — Systems</span>
+                <span className="mini-row">Book notes, Systems</span>
               </div>
             </div>
 
@@ -213,7 +213,7 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" /><path d="M4 16v2.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V16" /></svg>
               </span>
               <h3>Drag to organize</h3>
-              <p>Drag notes onto a sidebar section — or drop text and <span className="kbd-inline">.txt</span> files anywhere to create new notes.</p>
+              <p>Drag notes onto a sidebar section, or drop text and <span className="kbd-inline">.txt</span> files anywhere to create new notes.</p>
             </div>
 
             <div className="card feature span-3 reveal" style={d("0.08s")}>
@@ -238,7 +238,7 @@ export default function Home() {
               </h2>
               <p className="section-lede reveal" style={d("0.1s")}>
                 Not an Electron shell, not a web app in a wrapper. QuickNote is Swift and
-                SwiftUI from the first line — and it behaves the way a Mac utility should.
+                SwiftUI from the first line, and it behaves the way a Mac utility should.
               </p>
               <ul className="made-list">
                 <li className="reveal">
@@ -247,7 +247,7 @@ export default function Home() {
                 </li>
                 <li className="reveal" style={d("0.06s")}>
                   <span className="tick">✓</span>
-                  <div><strong>Lives in the menu bar</strong><span>Optional launch at login — silent, no window, just ready.</span></div>
+                  <div><strong>Lives in the menu bar</strong><span>Optional launch at login, silent, no window, just ready.</span></div>
                 </li>
                 <li className="reveal" style={d("0.12s")}>
                   <span className="tick">✓</span>
@@ -286,12 +286,12 @@ export default function Home() {
             <p className="eyebrow">Privacy</p>
             <h2>Your thoughts stay on your Mac.</h2>
             <p className="section-lede">
-              Notes are stored in a local database — no account, no cloud, no sync service, no
+              Notes are stored in a local database, no account, no cloud, no sync service, no
               analytics. This website has no trackers either.
             </p>
             <ul className="privacy-list">
               <li><strong>No accounts</strong>Nothing to sign up for, nothing to reset.</li>
-              <li><strong>No network</strong>QuickNote doesn&apos;t phone home — it has no reason to.</li>
+              <li><strong>No network</strong>QuickNote doesn&apos;t phone home, it has no reason to.</li>
               <li><strong>No telemetry</strong>We can&apos;t see your notes. They never leave your machine.</li>
             </ul>
           </div>
@@ -312,7 +312,7 @@ export default function Home() {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5" /><path d="M4.5 17.5V19A1.5 1.5 0 0 0 6 20.5h12a1.5 1.5 0 0 0 1.5-1.5v-1.5" /></svg>
               Download QuickNote&nbsp;(.dmg)
             </a>
-            <p className="download-note">Free direct download — nothing to install before the app itself.</p>
+            <p className="download-note">Free direct download, nothing to install before the app itself.</p>
 
             <ol className="install-steps">
               <li><strong>Open the DMG</strong> and drag QuickNote to your Applications folder.</li>
@@ -322,7 +322,7 @@ export default function Home() {
                 notarized yet. Click <em>Done</em>, then open System Settings → Privacy &amp;
                 Security → <em>Open Anyway</em> → <em>Open</em>.
               </li>
-              <li><strong>That&apos;s it.</strong> No permissions to grant — set your shortcut in Settings and start capturing.</li>
+              <li><strong>That&apos;s it.</strong> No permissions to grant, set your shortcut in Settings and start capturing.</li>
             </ol>
           </div>
         </div>

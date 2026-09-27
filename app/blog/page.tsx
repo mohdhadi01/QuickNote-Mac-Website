@@ -4,14 +4,14 @@ import { getAllPosts } from "@/lib/posts";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Blog — quick capture, keyboard workflows & a calmer Mac",
+  title: "Blog, quick capture, keyboard workflows & a calmer Mac",
   description:
-    "Practical guides for taking quick notes on macOS: capture workflows, keyboard shortcuts, menu bar tools, and keeping your thoughts organized — from the makers of QuickNote.",
+    "Practical guides for taking quick notes on macOS: capture workflows, keyboard shortcuts, menu bar tools, and keeping your thoughts organized, from the makers of QuickNote.",
   alternates: { canonical: "/blog" },
   openGraph: {
     title: `Blog · ${SITE_NAME}`,
     description:
-      "Practical guides for taking quick notes on macOS — capture workflows, keyboard shortcuts, and menu bar tools.",
+      "Practical guides for taking quick notes on macOS, capture workflows, keyboard shortcuts, and menu bar tools.",
     url: "/blog",
     type: "website",
   },
@@ -45,7 +45,7 @@ export default function BlogIndex() {
         <h1>Capture faster. Think clearer.</h1>
         <p className="section-lede">
           Short, practical guides about quick capture, keyboard-first workflows, and keeping a
-          Mac tidy — written by the person who built QuickNote.
+          Mac tidy, written by the person who built QuickNote.
         </p>
       </header>
 

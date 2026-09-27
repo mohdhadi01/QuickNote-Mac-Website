@@ -2,9 +2,9 @@
 
 <img src="public/assets/icon/icon-256.png" width="88" alt="QuickNote app icon">
 
-# QuickNote — Website
+# QuickNote, Website
 
-**The marketing site for [QuickNote](https://github.com/mohdhadi01/QuickNote)** —
+**The marketing site for [QuickNote](https://github.com/mohdhadi01/QuickNote)**,
 a native macOS instant-notes utility. Built with Next.js, statically exported,
 zero trackers.
 
@@ -12,12 +12,14 @@ zero trackers.
 [![Static export](https://img.shields.io/badge/Output-static_%2Fout-blue)](https://github.com/mohdhadi01/QuickNote-Website)
 [![Get the app](https://img.shields.io/badge/⬇_Get_QuickNote-DMG-4a56d6)](https://github.com/mohdhadi01/QuickNote/releases/latest)
 
-![QuickNote website, light theme — full landing page](docs/site-light.jpg)
+![QuickNote website, dark theme, full landing page](docs/site-dark.jpg)
 
-![QuickNote website, dark theme — hero with the capture demo](docs/site-dark.jpg)
+The capture panel it advertises, straight from the app:
+
+![QuickNote capture panel with a typed note](docs/app-capture.png)
 
 Every product visual on the site is a **real screenshot of the app**, captured
-with the app's own snapshot tooling and curated demo notes — see the
+with the app's own snapshot tooling and curated demo notes, see the
 [`-quicknote.demoData`](https://github.com/mohdhadi01/QuickNote) hook in the
 app repo.
 
@@ -25,15 +27,15 @@ app repo.
 
 ## What's on the site
 
-- **Hero with a looping capture demo** — keycaps press, the glass capture panel
+- **Hero with a looping capture demo**, keycaps press, the glass capture panel
   appears, a note is typed, Return saves it, and the note appears in the app
   window (all real screenshots, animated with transform/opacity only).
-- **How it works** — the three-second shortcut → thought → saved story.
-- **Showcase & bento features** — the app's main window plus search, keyboard,
+- **How it works**, the three-second shortcut → thought → saved story.
+- **Showcase & bento features**, the app's main window plus search, keyboard,
   multi-select/merge, and drag-and-drop highlights.
-- **Made for Mac, Privacy, Download** — native identity, local-only promise,
+- **Made for Mac, Privacy, Download**, native identity, local-only promise,
   and the real DMG shipped with the site.
-- **Blog** — four keyword-targeted articles grounded in
+- **Blog**, four keyword-targeted articles grounded in
   [product truth](content/product-truth.md).
 
 ## Structure
@@ -51,7 +53,7 @@ app repo.
 │   └── manifest.ts           # → /manifest.webmanifest
 ├── components/               # Nav, Footer, MacWindow, ClientEffects (theme/reveal/hero)
 ├── content/
-│   ├── product-truth.md      # feature truth table — READ before editing copy
+│   ├── product-truth.md      # feature truth table, READ before editing copy
 │   ├── screenshots-MANIFEST.md
 │   └── posts/*.md            # blog posts (frontmatter: title, description, date, keywords)
 ├── lib/
@@ -79,7 +81,7 @@ npm run build      # static export → out/
 npx serve out      # or: python3 -m http.server -d out 8080
 ```
 
-`out/` is a fully static site (with the DMG inside) — deploy it anywhere.
+`out/` is a fully static site (with the DMG inside), deploy it anywhere.
 
 ## Deploy
 
@@ -100,7 +102,7 @@ button links there directly. The canonical copy lives in the app repo's
 
 - Per-page `title`/`description`, canonical URLs, Open Graph + Twitter cards
   (`metadataBase` comes from `NEXT_PUBLIC_SITE_URL`, default `https://quicknote.app`
-  — **set it to your real domain**).
+, **set it to your real domain**).
 - `/sitemap.xml` (pages + posts) and `/robots.txt` generated at build.
 - JSON-LD: `SoftwareApplication` (home), `Blog` (index), `BlogPosting` +
   `BreadcrumbList` (posts).
@@ -113,7 +115,7 @@ button links there directly. The canonical copy lives in the app repo's
 All product visuals come from the app repo (`../QuickNote`):
 
 ```
-# in the app repo — captures light+dark PNGs with curated demo notes:
+# in the app repo, captures light+dark PNGs with curated demo notes:
 .build/DD/Build/Products/Debug/QuickNote.app/Contents/MacOS/QuickNote \
   -hasCompletedOnboarding 1 -quicknote.demoData -quicknote.inMemoryStore 1 \
   -quicknote.debugSnapshot

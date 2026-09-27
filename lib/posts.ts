@@ -6,7 +6,7 @@ import { marked } from "marked";
 /**
  * Blog content lives in content/posts/*.md with frontmatter:
  *   title, description, date (YYYY-MM-DD), keywords (comma-separated)
- * Rendered to HTML at build time (static export — no runtime cost).
+ * Rendered to HTML at build time (static export, no runtime cost).
  */
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");

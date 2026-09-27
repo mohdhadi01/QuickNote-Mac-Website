@@ -8,10 +8,10 @@ export const SITE_URL =
 
 export const SITE_NAME = "QuickNote";
 
-export const SITE_TITLE = "QuickNote — Capture a thought before it disappears";
+export const SITE_TITLE = "QuickNote, Capture a thought before it disappears";
 
 export const SITE_DESCRIPTION =
-  "QuickNote is a native Mac app that turns one keystroke into a note. Press ⌃⇧Space anywhere, type, hit return — it's saved. Free, fast, and your notes never leave your Mac.";
+  "QuickNote is a native Mac app that turns one keystroke into a note. Press ⌃⇧Space anywhere, type, hit return, it's saved. Free, fast, and your notes never leave your Mac.";
 
 export const DOWNLOAD_PATH = "/downloads/QuickNote-1.0.dmg";
 
