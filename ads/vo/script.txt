@@ -1,6 +1,0 @@
-S1|Every great idea has a short life.
-S2|It shows up while you're building, designing, writing. And disappears just as fast.
-S3|QuickNote catches it in one keystroke. Press. Type. Return. It's saved.
-S4|A calm home for everything you capture. Search that keeps up. Pin what matters. Merge the noise.
-S5|No accounts. No cloud. Your thoughts stay on your Mac.
-S6|QuickNote. Capture a thought before it disappears.
