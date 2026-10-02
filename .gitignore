@@ -4,7 +4,6 @@ node_modules/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
-
 ads/frames/
 ads//out/qa_*.png
 ads//out/qb_*.png
