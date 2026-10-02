@@ -7,7 +7,7 @@ import struct
 import random
 
 SR = 44100
-DUR = 45.0
+DUR = 46.0
 N = int(SR * DUR)
 random.seed(7)
 
@@ -86,41 +86,41 @@ for i in range(n0, n1):
 
 # music structure (per the prompt's map)
 # 0-8: drone only, almost silent
-tone(110.0, 0.0, 44.0, 0.045, attack=3.0, release=3.5, detune=0.004)
-tone(220.0, 0.0, 44.0, 0.016, attack=3.5, release=3.5, detune=-0.003)
+tone(110.0, 0.0, 45.5, 0.045, attack=3.0, release=3.5, detune=0.004)
+tone(220.0, 0.0, 45.5, 0.016, attack=3.5, release=3.5, detune=-0.003)
 # 8-24: soft pulse + alternating pads, gentle build
 t = 8.0
 pamp = 0.006
-while t < 33.0:
+while t < 33.8:
     tone(1000.0, t, 0.05, pamp, attack=0.002, release=0.04)
     t += 0.5
     pamp = min(0.016, pamp * 1.035)
 chords = [
     (8.0,  [220.00, 261.63, 329.63]),   # Am
-    (10.5, [174.61, 220.00, 261.63]),   # F
-    (13.0, [196.00, 246.94, 293.66]),   # G? keep consonant: Em
-    (15.5, [220.00, 261.63, 329.63]),   # Am
-    (18.0, [174.61, 220.00, 261.63]),   # F
-    (20.5, [261.63, 329.63, 392.00]),   # C
-    (23.0, [196.00, 246.94, 293.66]),   # Em
-    (25.5, [174.61, 220.00, 261.63]),   # F
+    (10.8, [174.61, 220.00, 261.63]),   # F
+    (13.6, [196.00, 246.94, 293.66]),   # Em
+    (16.4, [220.00, 261.63, 329.63]),   # Am
+    (19.2, [174.61, 220.00, 261.63]),   # F
+    (22.0, [261.63, 329.63, 392.00]),   # C
+    (24.8, [196.00, 246.94, 293.66]),   # Em
+    (27.6, [174.61, 220.00, 261.63]),   # F
 ]
 for start, freqs in chords:
     for f in freqs:
         tone(f, start, 3.2, 0.020, attack=1.1, release=1.4, detune=0.002)
 # 24-34 montage + universe: expansive pad swell
 for f in [220.00, 277.18, 329.63, 415.30]:
-    tone(f, 28.8, 5.4, 0.016, attack=1.6, release=2.2, detune=0.003)
+    tone(f, 31.8, 5.4, 0.016, attack=1.6, release=2.2, detune=0.003)
 # 34-40: drop back (drone only, handled by long tones)
 # 40.8: final resolving chord (A add9)
 for f in [220.00, 277.18, 329.63, 493.88, 554.37]:
-    tone(f, 40.8, 4.2, 0.030, attack=0.9, release=2.4, detune=0.002)
+    tone(f, 41.6, 4.2, 0.030, attack=0.9, release=2.4, detune=0.002)
 
 # glass pings at accents
 glass(10.15, 2400)
-glass(17.45, 2700)
-glass(29.55, 2100)
-glass(33.55, 3000)
+glass(19.05, 2700)
+glass(29.85, 2100)
+glass(34.05, 3000)
 glass(39.35, 2400)
 
 # scene sfx

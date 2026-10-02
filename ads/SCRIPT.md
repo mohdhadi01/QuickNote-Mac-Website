@@ -1,45 +1,34 @@
-# QuickNote, Don't Break the Flow — 45s vertical film
+# QuickNote, Don't Break the Flow — 46s vertical film (v3)
 
-Master: `out/QuickNote-Ad-1080x1920-master.mp4` (1080x1920, 30fps, 45s).
-Derivatives cut from the same footage: `-15s.mp4` (the hook + capture),
-`-6s.mp4` (signature interaction only).
+Master: `out/QuickNote-Ad-1080x1920-master.mp4` (1080x1920, 30fps, 46s).
+Derivatives cut from the same footage: `-15s.mp4`, `-6s.mp4`.
 
-Creative concept: DON'T BREAK THE FLOW.
-Emotional arc: recognition, curiosity, delight, understanding, desire.
-The viewer experiences IDEA -> INTERRUPT -> QUICK CAPTURE -> CONTINUE.
+Third-person cinematography: an over-the-shoulder silhouette developer at a
+glowing MacBook in a dark room; the camera pushes in and zooms INTO the screen
+for every capture, then pulls back out. Screen-world scenes use the real UI.
 
-## Scenes (master timeline)
-
-| # | Time | Environment | Events |
+| # | Time | View | Events |
 |---|---|---|---|
-| 1 | 0.0-4.4 | Code editor macro (APIClient.swift) | Dev: "Wait… what if we just cache this?" / "cache this?" thought floats / YOU KNOW THAT MOMENT. |
-| 2 | 4.4-8.0 | Editor dims, thought blurs and fades | Narrator: "And you don't want to lose it…" / music drops |
-| 3 | 8.0-13.2 | THE MAGIC MOMENT | Glass wave, keys press, panel emerges from layers, "Cache the expensive API response" types, return, saved, panel gone, BACK TO WORK. slides into the code |
-| 4 | 13.2-19.5 | Meeting grid (3 tiles) | Aditi: "We should probably revisit the onboarding flow before launch." / "Oh…" / shortcut / note / gone. Meeting continues |
-| 5 | 19.5-24.7 | Fullscreen video player | Dev: "Oh, that's actually a good idea." / shortcut / "Try this interaction in QuickNote website" / gone |
-| 6 | 24.75-28.95 | Rapid montage: debugger, design canvas, chat, browser | four rhythmic captures: race condition / type scale / Srijan API flow / research tomorrow |
-| 7 | 28.95-33.9 | 3D thought universe: captured notes orbit in glass space with depth of field | THINK. / CAPTURE. / CONTINUE. / cards converge into the real interface |
-| 8 | 33.9-37.9 | MacBook hero | YOUR NOTES STAY ON YOUR MAC. / No account. No cloud. No detour. |
-| 9 | 37.9-45 | Product hero on black | panel with blinking cursor / QuickNote / Capture a thought before it disappears. / keys / Free · Native macOS app / "QuickNote. Don't break the flow." "Just keep going." / black, logo |
+| 1 | 0.0-6.4 | Room, over the shoulder | Rishi: "Hmm, wait. What if we just cache this? This call is way too slow." |
+| 2 | 6.4-9.0 | Zoom into the editor | "cache this?" thought glows / Tara: "And you don't want to lose it…" |
+| 3 | 9.0-14.0 | Screen: THE MAGIC MOMENT | wave, keys, panel, "Cache the expensive API response" types, return, saved / BACK TO WORK. |
+| 4 | 14.0-19.0 | Room, meeting on screen | Aman: "We should probably revisit the onboarding flow before launch. It feels confusing." |
+| 5 | 19.0-23.0 | Zoom into the meeting | Rishi: "Right, noted." / capture: "Simplify onboarding before adding features" |
+| 6 | 23.0-28.2 | Room at night, video playing | Rishi: "Oh, this is actually really nice. We should try this in our app." |
+| 7 | 28.2-30.6 | Zoom into the player | capture: "Try this interaction in QuickNote website" |
+| 8 | 30.75-33.85 | Rapid montage: debugger, design canvas, chat | three rhythmic captures |
+| 9 | 33.85-38.0 | 3D thought universe, depth of field | THINK. CAPTURE. CONTINUE. / notes converge into the real interface |
+| 10 | 38.0-41.3 | MacBook hero | YOUR NOTES STAY ON YOUR MAC. / No account. No cloud. No detour. |
+| 11 | 41.3-46 | Product hero on black | panel, wordmark, tagline, keys / "QuickNote. Don't break the flow." "Just keep going." / black, logo |
 
-## Sound
-
-Three layers, mixed at exact offsets:
-1. Real-world: room tone, keyboard beds during every typing window.
-2. Interface: whoosh + glass shimmer on each shortcut, tactile return click,
-   two-note save confirmation, panel-out movement.
-3. Score: near-silent drone, pulse enters at 8s, alternating pads build,
-   expansive swell under the universe, drop at 34s, resolving A-add9 chord
-   at 40.8s under the end line.
-
-Voices: Rishi (developer lines), Aman (meeting), Tara (narrator), all en-IN.
+Sound: room tone, keyboard beds, whoosh + glass on every shortcut, tactile
+return clicks, save confirmations, structured score (drone, pulse at 8s,
+pads, swell under the universe, drop, resolving A-add9 at 41.6s), and the
+score ducks under dialogue automatically.
 
 ## Rebuild
 
 ```
-python3 synth.py     # regenerate score.wav (score + sfx + ambience)
-node render2.mjs     # re-render frames, remix audio, recut derivatives
+python3 synth.py     # regenerate score.wav
+node render3.mjs     # frames + audio mix + master + derivatives
 ```
-
-Stage: `stage2.html` (deterministic timeline, transform/opacity motion only).
-All product UI is the real interface; all notes are demo fragments.
