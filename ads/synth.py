@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Synthesizes the ad's complete sound design bed: score + sfx + ambience.
-Pure stdlib. Output: sfx/score.wav (45s stereo)."""
+Pure stdlib. Output: sfx/score.wav (46s stereo)."""
 import wave
 import math
 import struct
