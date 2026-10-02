@@ -4,3 +4,6 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+ads/frames/
+ads/out/qa_*.png
