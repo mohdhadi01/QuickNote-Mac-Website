@@ -118,32 +118,32 @@ for f in [220.00, 277.18, 329.63, 493.88, 554.37]:
 
 # glass pings at accents
 glass(10.15, 2400)
-glass(19.05, 2700)
+glass(21.00, 2700)
 glass(29.85, 2100)
 glass(34.05, 3000)
 glass(39.35, 2400)
 
-# scene sfx
-whoosh(8.20); glass(8.70)
-typing_bed(9.35, 10.85)
-return_click(11.10); save_ding(11.25); whoosh(11.62, 0.3, 0.03, lo=0.15, sweep=0.8)
-thump(3.25, 55.0, 0.3, 0.06)                     # the idea lands
-whoosh(16.45); glass(16.90)
-typing_bed(17.30, 18.50)
-return_click(18.75); save_ding(18.90); whoosh(19.15, 0.3, 0.028, lo=0.15, sweep=0.8)
-whoosh(22.75); glass(23.15)
-typing_bed(23.50, 24.45)
-return_click(24.62); save_ding(24.76)
+# scene sfx (v3 timeline)
+thump(3.40, 55.0, 0.3, 0.06)                     # the idea lands
+thump(7.50, 55.0, 0.3, 0.05)                     # it glows on screen
+whoosh(8.95); glass(9.40)                        # magic moment
+typing_bed(10.20, 11.70)
+return_click(11.95); save_ding(12.10); whoosh(12.52, 0.3, 0.03, lo=0.15, sweep=0.8)
+whoosh(20.20); glass(21.05)                      # meeting capture
+typing_bed(21.35, 22.15)
+return_click(22.30); save_ding(22.45); whoosh(22.85, 0.3, 0.028, lo=0.15, sweep=0.8)
+whoosh(28.15); glass(28.30)                      # night capture
+typing_bed(29.30, 30.05)
+return_click(30.20); save_ding(30.35); whoosh(30.62, 0.28, 0.026, lo=0.15, sweep=0.8)
 # montage rhythm
-for s in [24.98, 26.03, 27.08, 28.13]:
-    whoosh(s, 0.28, 0.038)
-    glass(s + 0.28, 2500, 0.022)
-    return_click(s + 0.72); save_ding(s + 0.82)
+for s in [30.78, 31.83, 32.88]:
+    whoosh(s, 0.26, 0.036)
+    glass(s + 0.26, 2500, 0.02)
+    return_click(s + 0.7); save_ding(s + 0.8)
 # 3D universe
-noise_riser = None
-whoosh(28.55, 0.9, 0.045, lo=0.05, sweep=0.85)
-glass(29.60, 1900, 0.026)
-whoosh(32.55, 0.5, 0.04, lo=0.85, sweep=0.05)
+whoosh(28.30, 0.95, 0.042, lo=0.05, sweep=0.85)
+glass(34.05, 1900, 0.026)
+whoosh(37.32, 0.5, 0.04, lo=0.85, sweep=0.05)
 
 # ---------- write ----------
 buf = [0.0 if (v != v or abs(v) == float("inf")) else v for v in buf]
