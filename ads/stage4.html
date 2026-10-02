@@ -1,0 +1,682 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QuickNote Cinematic Production</title>
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b0d14; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
+  .stage { position: relative; width: 1080px; height: 1920px; }
+  .scene { position: absolute; inset: 0; will-change: opacity, transform; }
+  .serif { font-family: Georgia, "Iowan Old Style", serif; }
+  .kword { position: absolute; font-weight: 800; color: #f0f2f8; }
+
+  .bgbase { position: absolute; inset: 0; background:
+      radial-gradient(130% 70% at 50% 20%, #151824, #08090e 64%); }
+  .blob { position: absolute; border-radius: 50%; filter: blur(140px); opacity: .6; mix-blend-mode: screen; }
+  .b1 { width: 900px; height: 900px; left: -240px; top: -260px;
+        background: radial-gradient(circle at 40% 40%, rgba(60,80,200,.4), transparent 66%); }
+  .b2 { width: 800px; height: 800px; right: -240px; bottom: 200px;
+        background: radial-gradient(circle at 55% 45%, rgba(90,60,200,.3), transparent 66%); }
+  .film-grain { position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay; }
+  .vignette { position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,.85) 120%); }
+  #fade { position: absolute; inset: 0; background: #000; opacity: 0; }
+
+  /* ============ ROOM (third-person cinematography) ============ */
+  #scRoom { will-change: opacity, filter; }
+  .room { position: absolute; inset: -40px; will-change: transform; transform-origin: 62% 42%; }
+  .room .wall { position: absolute; inset: 0;
+      background: linear-gradient(180deg, #10121a 0%, #0a0c12 55%, #050608 100%); }
+  .room .window { position: absolute; right: 100px; top: 140px; width: 340px; height: 680px;
+      border-radius: 12px; background: linear-gradient(180deg, #060912, #080c1a);
+      border: 1px solid rgba(255,255,255,.03); overflow: hidden; box-shadow: inset 0 20px 100px rgba(0,0,0,.8); }
+  .room .window .city { position: absolute; inset: 0; }
+  .room .window .city i { position: absolute; border-radius: 50%; filter: blur(6px); }
+  .room .desk { position: absolute; left: 0; right: 0; bottom: 0; height: 660px;
+      background: linear-gradient(180deg, #15161c 0%, #0d0e12 30%, #050608 100%);
+      border-top: 1px solid rgba(255,255,255,.05); box-shadow: 0 -30px 100px rgba(0,0,0,.5); }
+  .room .mug { position: absolute; left: 150px; bottom: 470px; width: 90px; height: 110px;
+      border-radius: 12px 12px 18px 18px; background: linear-gradient(180deg, #23262e, #15171d);
+      border: 1px solid rgba(255,255,255,.08); }
+  .room .mug::after { content: ""; position: absolute; right: -26px; top: 26px;
+      width: 26px; height: 44px; border-radius: 0 14px 14px 0;
+      border: 8px solid rgba(255,255,255,.08); border-left: none; }
+  .room .steam { position: absolute; left: 168px; bottom: 590px; width: 60px; height: 200px;
+      background: radial-gradient(40% 100% at 50% 100%, rgba(255,255,255,.09), transparent 75%);
+      filter: blur(10px); }
+  .mbook { position: absolute; left: 340px; top: 620px; width: 720px; }
+  .mbook .mscr { position: relative; width: 720px; height: 468px; border-radius: 16px 16px 0 0;
+      background: #030406; border: 3px solid #1a1b1f; border-bottom: none; overflow: hidden;
+      box-shadow: 0 0 100px rgba(100,120,240,.15), inset 0 0 80px rgba(0,0,0,.8); }
+  .mbook .mscr::after { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.03) 0%, transparent 40%); }
+  .mbook .mbase { width: 810px; height: 28px; margin-left: -45px; border-radius: 0 0 18px 18px;
+      background: linear-gradient(180deg, #2a2c33, #15161a);
+      box-shadow: 0 30px 80px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.15); position: relative; }
+  .mbook .mbase::after { content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+      width: 150px; height: 10px; border-radius: 0 0 10px 10px; background: #111218; }
+  .mini { position: absolute; inset: 0; padding: 40px 44px; }
+  .mini .mcode { height: 16px; border-radius: 4px; background: rgba(126,224,192,.3); margin-bottom: 22px; }
+  .mini .mcode.k { background: rgba(255,122,178,.3); }
+  .mini .mcode.c { background: rgba(130,170,255,.3); }
+  .mini .mtile { height: 130px; border-radius: 14px; background: rgba(255,255,255,.08);
+      border: 1px solid rgba(143,154,255,.5); margin-bottom: 22px; }
+  .mini .mbar { height: 12px; border-radius: 6px; background: rgba(255,255,255,.25); width: 40%; margin-top: 26px; }
+  .person { position: absolute; left: -80px; bottom: -40px; width: 680px; height: 940px; filter: blur(2px); }
+  .person .head { position: absolute; left: 190px; top: 130px; width: 300px; height: 320px;
+      border-radius: 48% 52% 46% 54%; background: #05060a;
+      box-shadow: inset -34px -12px 70px rgba(129,140,248,.14), inset 14px 10px 40px rgba(0,0,0,.8); }
+  .person .torso { position: absolute; left: 0; top: 400px; width: 640px; height: 520px;
+      border-radius: 45% 55% 0 0 / 70% 80% 0 0; background: #04050a;
+      box-shadow: inset -40px -10px 90px rgba(129,140,248,.1); }
+  .room .night { position: absolute; inset: 0; background: rgba(2,3,7,.78); opacity: 0; }
+  .room .screenshine { position: absolute; left: 340px; top: 620px; width: 720px; height: 468px; background: radial-gradient(60% 60% at 50% 50%, rgba(160,180,255,.1), transparent 70%); mix-blend-mode: screen; }
+
+  /* ---- editor UI world ---- */
+  .editor { position: absolute; inset: 0; background: #10131c; }
+  .editor .tabs { height: 92px; display: flex; align-items: center; padding: 0 34px; gap: 18px;
+      background: rgba(255,255,255,.045); border-bottom: 1px solid rgba(255,255,255,.08); }
+  .editor .tabs .dot { width: 17px; height: 17px; border-radius: 50%; margin-right: 6px; }
+  .editor .tabs .r { background: #ff5f57; } .editor .tabs .y { background: #febc2e; } .editor .tabs .g { background: #28c840; }
+  .editor .tabs .tab { margin-left: 22px; padding: 12px 26px; border-radius: 12px; font-size: 25px;
+      color: rgba(240,242,248,.85); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.09); }
+  .editor .code { padding: 240px 44px 0 30px; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 31px; line-height: 1.75; white-space: pre; color: #c8d3e8; }
+  .editor .code .ln { display: inline-block; width: 76px; color: rgba(200,211,232,.3); }
+  .kw { color: #ff7ab2; } .ty { color: #7ee0c0; } .fn { color: #82aaff; }
+  .st { color: #e5c07b; } .cm { color: rgba(200,211,232,.38); }
+  .editor .dimtop { position: absolute; left: 0; right: 0; top: 0; height: 300px;
+      background: linear-gradient(180deg, rgba(6,8,12,.9), transparent); }
+  .editor .dimbot { position: absolute; left: 0; right: 0; bottom: 0; height: 420px;
+      background: linear-gradient(0deg, rgba(6,8,12,.92), transparent); }
+  .idea-glow { position: absolute; left: 30px; right: 30px; height: 74px; border-radius: 10px;
+      background: rgba(143,154,255,.12); box-shadow: 0 0 50px rgba(129,140,248,.25); }
+
+  /* ---- meeting ---- */
+  .meeting { position: absolute; inset: 0; background: #0d0f16; padding: 150px 60px 0; }
+  .meeting .tile { position: relative; height: 420px; border-radius: 26px; margin-bottom: 36px;
+      background: linear-gradient(160deg, #1c2030, #141827);
+      border: 1px solid rgba(255,255,255,.1); overflow: hidden; }
+  .meeting .tile .av { position: absolute; left: 50%; top: 42%; transform: translate(-50%,-50%);
+      width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 56px; font-weight: 700; color: #fff; }
+  .meeting .tile .nm { position: absolute; left: 30px; bottom: 26px; font-size: 30px; color: rgba(240,242,248,.85); }
+  .meeting .tile .ring { position: absolute; inset: 0; border: 6px solid rgba(143,154,255,.8); border-radius: 26px; }
+  .meeting .leave { position: absolute; left: 50%; bottom: 220px; transform: translateX(-50%);
+      padding: 20px 54px; border-radius: 999px; background: rgba(255,95,87,.16);
+      border: 1px solid rgba(255,95,87,.55); color: #ff8b84; font-size: 30px; font-weight: 600; }
+  .meeting .cap { position: absolute; left: 50%; bottom: 420px; transform: translateX(-50%);
+      width: 920px; text-align: center; font-size: 31px; color: rgba(240,242,248,.92);
+      background: rgba(10,12,18,.75); border-radius: 16px; padding: 18px 26px; }
+
+  /* ---- player ---- */
+  .player { position: absolute; inset: 0; background: #05060a; }
+  .player .content { position: absolute; inset: 0; background:
+      radial-gradient(80% 50% at 50% 38%, rgba(129,140,248,.28), transparent 70%),
+      radial-gradient(60% 40% at 30% 70%, rgba(168,85,247,.16), transparent 70%), #07080d; }
+  .player .play { position: absolute; left: 50%; top: 44%; transform: translate(-50%,-50%);
+      width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); }
+  .player .controls { position: absolute; left: 60px; right: 60px; bottom: 500px; }
+  .player .pbar { height: 10px; border-radius: 5px; background: rgba(255,255,255,.22); }
+  .player .pfill { width: 34%; height: 10px; border-radius: 5px; background: #fff; }
+
+  /* ---- montage ---- */
+  .dbg { position: absolute; inset: 0; background: #0c0e15; padding: 190px 60px 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 30px; line-height: 1.9; color: rgba(200,211,232,.75); }
+  .dbg .err { color: #ff7b72; }
+  .design { position: absolute; inset: 0; background: #12141c; padding: 220px 80px 0; }
+  .design .spec { display: flex; align-items: baseline; gap: 30px; margin-bottom: 34px; color: #f0f2f8; }
+  .design .lab { font-size: 26px; color: rgba(240,242,248,.45); width: 220px; }
+  .chat { position: absolute; inset: 0; background: #0e1119; padding: 200px 60px 0; }
+  .chat .bubble { max-width: 720px; padding: 26px 32px; border-radius: 26px; margin-bottom: 34px; font-size: 30px; }
+  .chat .them { background: rgba(255,255,255,.08); color: rgba(240,242,248,.9); border-bottom-left-radius: 8px; }
+  .chat .me { background: rgba(129,140,248,.28); color: #f0f2f8; margin-left: 220px; border-bottom-right-radius: 8px; }
+
+  /* ---- panel ---- */
+  #panel { position: absolute; left: 70px; top: 660px; width: 940px; z-index: 30; }
+  #panel .ghost { position: absolute; inset: 0; border-radius: 30px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); }
+  #panel .main { position: relative; border-radius: 24px; overflow: hidden;
+      background: rgba(20,20,25,.65);
+      -webkit-backdrop-filter: blur(50px) saturate(200%);
+      backdrop-filter: blur(50px) saturate(200%);
+      border: 1px solid rgba(255,255,255,.15); border-top: 1px solid rgba(255,255,255,.3);
+      box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 120px rgba(100,120,255,.15), inset 0 1px 0 rgba(255,255,255,.1); }
+  #panel .main .sheen { position: absolute; inset: 0;
+      background: linear-gradient(165deg, rgba(255,255,255,.14), transparent 42%); }
+  #panel .ph { display: flex; align-items: center; gap: 18px; padding: 44px 44px 10px; }
+  #panel .bolt { color: #8f9aff; font-size: 34px; }
+  #panel .tl { position: relative; font-size: 44px; font-weight: 500; letter-spacing: -0.01em; color: #fff; min-height: 56px; width: 100%; }
+  #panel .tl span { position: absolute; left: 0; top: 0; white-space: nowrap; }
+  #panel .bar { display: flex; gap: 36px; padding: 60px 44px 34px; font-size: 24px; color: rgba(255,255,255,.5); font-weight: 500; }
+  #panel .kb { padding: 6px 14px; border-radius: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.1); font-size: 20px; color: rgba(255,255,255,.9); box-shadow: 0 2px 5px rgba(0,0,0,.2); }
+
+  #keys { position: absolute; left: 50%; top: 470px; transform: translateX(-50%);
+      display: flex; gap: 20px; z-index: 31; }
+  #keys .key { min-width: 96px; height: 96px; padding: 0 30px; display: grid; place-items: center;
+      border-radius: 20px; font-size: 42px; font-weight: 600; color: #fff;
+      background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05));
+      -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 8px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.3); }
+  #keys .keyret { opacity: .4; }
+
+  #saved { position: absolute; left: 50%; top: 980px; transform: translateX(-50%); z-index: 31;
+      display: inline-flex; align-items: center; gap: 16px; padding: 22px 40px; border-radius: 999px;
+      background: rgba(30,30,35,.8); -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,.15);
+      font-size: 30px; font-weight: 500; color: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  #saved .tick { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+      background: #007aff; font-size: 22px; color: #fff; box-shadow: 0 4px 15px rgba(0,122,255,.4); }
+
+  #wave { position: absolute; top: 0; bottom: 0; width: 400px; left: -400px; z-index: 45;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      filter: blur(10px); mix-blend-mode: overlay; }
+
+  .cap { position: absolute; left: 50%; transform: translateX(-50%); z-index: 32;
+      width: 900px; text-align: center; font-size: 36px; font-weight: 500; color: rgba(255,255,255,.95);
+      background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; padding: 24px 32px;
+      -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+
+  .kword { position: absolute; font-weight: 700; color: #fff; letter-spacing: -0.02em;
+      text-shadow: 0 10px 30px rgba(0,0,0,.8); }
+
+  /* 3D universe */
+  #un3d { position: absolute; inset: 0; perspective: 1500px; }
+  .ucard { position: absolute; left: 50%; top: 50%; width: 500px; margin-left: -250px;
+      padding: 34px 40px; border-radius: 20px;
+      background: rgba(30,30,35,.7); -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 50px 120px rgba(0,0,0,.6);
+      font-size: 32px; font-weight: 500; color: #fff; will-change: transform, opacity, filter; }
+  .ucard .uc-t { font-size: 20px; color: #8f9aff; margin-bottom: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px; }
+  #appreveal { position: absolute; left: 90px; right: 90px; top: 560px; border-radius: 26px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 60px 160px rgba(0,0,0,.6), 0 0 140px rgba(129,140,248,.2); }
+  #appreveal img { display: block; width: 100%; }
+
+  /* macbook hero */
+  #macbook { position: absolute; left: 50%; top: 640px; transform: translateX(-50%); width: 880px; }
+  #macbook .scr { position: relative; width: 880px; height: 570px; border-radius: 30px 30px 0 0;
+      background: #05060a; border: 4px solid #2a2c34; border-bottom: none; overflow: hidden;
+      box-shadow: 0 0 120px rgba(129,140,248,.18); }
+  #macbook .scr .note { position: absolute; left: 90px; top: 120px; width: 700px; padding: 34px 38px;
+      border-radius: 22px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18);
+      font-size: 32px; color: rgba(240,242,248,.92);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 30px 80px rgba(0,0,0,.5); }
+  #macbook .base { width: 1020px; height: 34px; margin-left: -70px; border-radius: 0 0 26px 26px;
+      background: linear-gradient(180deg, #3a3d46, #21232b);
+      box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.25); position: relative; }
+  #macbook .base::after { content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+      width: 190px; height: 13px; border-radius: 0 0 14px 14px; background: #15161c; }
+  #macbook .glow { position: absolute; inset: 0; background: radial-gradient(60% 55% at 50% 42%, rgba(129,140,248,.16), transparent 70%); }
+
+  /* final */
+  #fh { padding-top: 400px; }
+  #fh .fpanel { position: relative; width: 820px; margin: 0 auto; border-radius: 30px; overflow: hidden;
+      background: rgba(16,16,20,.9); border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 60px 160px rgba(0,0,0,.65), 0 0 180px rgba(129,140,248,.3); }
+  #fh .fpanel .ph { display: flex; gap: 16px; padding: 46px 44px; align-items: center; }
+  #fh .fpanel .bolt { color: #8f9aff; font-size: 38px; }
+  #fh .fpanel .cursor { display: inline-block; width: 3.5px; height: 46px; background: #8f9aff; }
+  #fh .wordmark { text-align: center; font-size: 78px; font-weight: 700; color: #f0f2f8; margin: 60px 0 26px; }
+  #fh .tag { text-align: center; font-size: 52px; line-height: 1.2; color: rgba(240,242,248,.92); margin-bottom: 46px; }
+  #fh .tag .accent { color: #8f9aff; }
+  #fh .keysrow { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; }
+  #fh .keysrow .key { min-width: 92px; height: 92px; padding: 0 30px; display: grid; place-items: center;
+      border-radius: 22px; font-size: 40px; font-weight: 600; color: #f0f2f8;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.22); box-shadow: 0 5px 0 rgba(255,255,255,.14), inset 0 1px 0 rgba(255,255,255,.18); }
+  #fh .free { text-align: center; font-size: 32px; color: rgba(240,242,248,.55); }
+  #logo { position: absolute; left: 50%; top: 46%; transform: translate(-50%,-50%); text-align: center; z-index: 45; }
+  #logo img { width: 170px; border-radius: 40px; box-shadow: 0 30px 90px rgba(0,0,0,.6); margin-bottom: 30px; }
+  #logo .t { font-size: 58px; font-weight: 700; color: #f0f2f8; }
+  #cursor { position: absolute; left: 0; top: 0; z-index: 60; }
+  #cursor svg { filter: drop-shadow(0 10px 20px rgba(0,0,0,.6)); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bgbase"></div>
+  <div class="blob b1" id="bg1"></div>
+  <div class="blob b2" id="bg2"></div>
+
+  <!-- ROOM: third-person world -->
+  <section class="scene" id="scRoom">
+    <div class="room" id="room">
+      <div class="wall"></div>
+      <div class="window">
+        <div class="city">
+          <i style="left:36px; top:120px; width:14px; height:14px; background:rgba(255,209,102,.8);"></i>
+          <i style="left:120px; top:210px; width:10px; height:10px; background:rgba(129,140,248,.75);"></i>
+          <i style="left:210px; top:90px; width:12px; height:12px; background:rgba(244,114,182,.6);"></i>
+          <i style="left:70px; top:330px; width:16px; height:16px; background:rgba(96,165,250,.55);"></i>
+          <i style="left:180px; top:420px; width:10px; height:10px; background:rgba(255,209,102,.6);"></i>
+          <i style="left:230px; top:520px; width:12px; height:12px; background:rgba(129,140,248,.5);"></i>
+          <i style="left:40px; top:500px; width:9px; height:9px; background:rgba(255,255,255,.4);"></i>
+        </div>
+      </div>
+      <div class="desk"></div>
+      <div class="mug"></div>
+      <div class="steam"></div>
+      <div class="mbook">
+        <div class="mscr">
+          <div class="mini" id="miniCode">
+            <div class="mcode k" style="width:34%"></div><div class="mcode" style="width:78%"></div>
+            <div class="mcode c" style="width:62%"></div><div class="mcode" style="width:84%"></div>
+            <div class="mcode" style="width:50%"></div><div class="mcode k" style="width:28%"></div>
+          </div>
+          <div class="mini" id="miniMeet" style="opacity:0">
+            <div class="mtile"></div><div class="mtile" style="border-color:rgba(255,255,255,.14)"></div>
+          </div>
+          <div class="mini" id="miniPlay" style="opacity:0">
+            <div class="mbar"></div><div class="mbar" style="width:64%; opacity:.5"></div>
+            <div class="mbar" style="width:78%; opacity:.35"></div>
+          </div>
+        </div>
+        <div class="mbase"></div>
+      </div>
+      <div class="screenshine"></div>
+      <div class="person" id="person">
+        <div class="head" id="phead"></div>
+        <div class="torso"></div>
+      </div>
+      <div class="night" id="night"></div>
+    </div>
+  </section>
+
+  <!-- EDITOR UI -->
+  <section class="scene" id="scEditor">
+    <div class="editor">
+      <div class="tabs">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="tab">APIClient.swift</span>
+      </div>
+      <div class="code" id="codeArea"><span class="ln">1</span><span class="kw">import</span> <span class="ty">Foundation</span>
+<span class="ln">2</span>
+<span class="ln">3</span><span class="kw">final class</span> <span class="ty">APIClient</span> {
+<span class="ln">4</span>    <span class="kw">func</span> <span class="fn">loadDashboard</span>() <span class="kw">async</span> {
+<span class="ln">5</span>        <span class="cm">// TODO: this call is slow</span>
+<span class="ln">6</span>        <span class="kw">let</span> data = <span class="kw">try await</span> <span class="ty">API</span>.<span class="fn">fetch</span>(<span class="st">"/dashboard"</span>)
+<span class="ln">7</span>        <span class="fn">render</span>(data)
+<span class="ln">8</span>    }
+<span class="ln">9</span>}</div>
+      <div class="dimtop"></div>
+      <div class="dimbot"></div>
+      <div class="idea-glow" id="ideaGlow" style="top: 969px;"></div>
+      <div class="kword" id="ktBtw" style="left: 50%; top: 1400px; transform: translateX(-50%); font-size: 70px;">BACK TO WORK.</div>
+    </div>
+  </section>
+
+  <!-- MEETING -->
+  <section class="scene" id="scMeeting">
+    <div class="meeting">
+      <div class="tile"><div class="ring" id="ring1"></div>
+        <div class="av" style="background: linear-gradient(135deg,#5464ee,#7c5cf0);">AR</div>
+        <div class="nm">Aditi R.</div></div>
+      <div class="tile"><div class="av" style="background: linear-gradient(135deg,#0ea5a4,#2563eb);">PK</div>
+        <div class="nm">Pranav K.</div></div>
+      <div class="tile"><div class="av" style="background: linear-gradient(135deg,#f59e0b,#ef4444);">You</div>
+        <div class="nm">You</div></div>
+      <div class="cap">I think the onboarding is still too long.</div>
+      <div class="leave">Leave</div>
+    </div>
+  </section>
+
+  <!-- PLAYER -->
+  <section class="scene" id="scLife">
+    <div class="player">
+      <div class="content"></div>
+      <div class="play"></div>
+      <div class="controls"><div class="pbar"><div class="pfill"></div></div></div>
+    </div>
+  </section>
+
+  <!-- MONTAGE -->
+  <section class="scene" id="scMontage">
+    <div class="dbg" id="mDbg">→ auth.refresh(token) <span class="err">✗ race condition: token nil</span>
+→ retry(2)… pending
+→ session.expiry = 3600</div>
+    <div class="design" id="mDsg">
+      <div class="spec"><span class="lab">Display</span><span class="serif" style="font-size:74px;">Aa</span></div>
+      <div class="spec"><span class="lab">Title</span><span class="serif" style="font-size:56px;">Aa</span></div>
+      <div class="spec"><span class="lab">Body</span><span style="font-size:34px;">Aa</span></div>
+    </div>
+    <div class="chat" id="mCht">
+      <div class="bubble them">Hey, is the API flow settled?</div>
+      <div class="bubble them">Need it before standup tomorrow</div>
+    </div>
+  </section>
+
+  <!-- UNIVERSE -->
+  <section class="scene" id="scUniverse">
+    <div id="un3d">
+      <div class="ucard" id="u1"><div class="uc-t">While Coding</div>Cache the API response</div>
+      <div class="ucard" id="u2"><div class="uc-t">In a Meeting</div>Simplify onboarding steps</div>
+      <div class="ucard" id="u3"><div class="uc-t">At Night</div>Try that hover effect on site</div>
+      <div class="ucard" id="u4"><div class="uc-t">debugging</div>Check race condition in auth</div>
+      <div class="ucard" id="u5"><div class="uc-t">designing</div>Try larger type scale</div>
+      <div class="ucard" id="u6"><div class="uc-t">with the team</div>Ask Srijan about API flow</div>
+    </div>
+    <div class="kword" id="ktThink" style="left: 50%; top: 350px; transform: translateX(-50%); font-size: 110px;">THINK.</div>
+    <div class="kword" id="ktCapture" style="left: 50%; top: 1500px; transform: translateX(-50%); font-size: 110px; color: #8f9aff;">CAPTURE.</div>
+    <div class="kword" id="ktCont" style="left: 50%; top: 1500px; transform: translateX(-50%); font-size: 110px;">CONTINUE.</div>
+    <div id="appreveal">
+      <img src="../public/assets/screenshots/main-dark.png" alt="">
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="scene" id="scPrivacy">
+    <div id="macbook">
+      <div class="scr"><div class="glow"></div>
+        <div class="note">Cache the expensive API response<br><span style="color:rgba(240,242,248,.45)">Today · 3:53 PM</span></div>
+      </div>
+      <div class="base"></div>
+    </div>
+    <div class="kword" id="ktStay1" style="left: 50%; top: 1480px; transform: translateX(-50%); font-size: 56px; text-align:center; width: 1040px;">YOUR NOTES STAY ON YOUR MAC.</div>
+    <div class="kword" id="ktStay2" style="left: 50%; top: 1620px; transform: translateX(-50%); font-size: 38px; text-align:center; width: 1000px; color: rgba(240,242,248,.6); font-weight: 600;">No account. &nbsp;No cloud. &nbsp;No detour.</div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="scene" id="scFinal">
+    <div id="fh">
+      <div class="fpanel"><div class="ph"><span class="bolt">⚡</span><span class="cursor" id="fblink"></span></div></div>
+      <div class="wordmark" id="fWord">QuickNote</div>
+      <div class="serif tag" id="fTag">Capture a thought<br><span class="accent">before it disappears.</span></div>
+      <div class="keysrow" id="fKeys"><div class="key">⌃</div><div class="key">⇧</div><div class="key">Space</div></div>
+      <div class="free" id="fFree">Free · Native macOS app</div>
+    </div>
+  </section>
+
+  <div id="logo">
+    <img src="../public/assets/icon/icon-256.png" alt="">
+    <div class="t">QuickNote</div>
+  </div>
+
+  <!-- GLOBAL UI -->
+  <div id="wave"></div>
+  <div id="panel">
+    <div class="ghost"></div><div class="ghost" id="ghost2"></div>
+    <div class="main">
+      <div class="sheen"></div>
+      <div class="ph"><span class="bolt">⚡</span>
+        <span class="tl" id="tl">
+          <span id="ty1" data-text="Cache the API response"></span>
+          <span id="ty2" data-text="Simplify onboarding steps"></span>
+          <span id="ty3" data-text="Try that hover effect on site"></span>
+          <span id="ty4" data-text="Check race condition in auth"></span>
+          <span id="ty5" data-text="Try larger type scale"></span>
+          <span id="ty6" data-text="Ask Srijan about API flow"></span>
+        </span>
+      </div>
+      <div class="bar">
+        <span><span class="kb">↩</span> Save</span>
+        <span><span class="kb">⇧</span><span class="kb">↩</span> New Line</span>
+        <span><span class="kb">esc</span> Dismiss</span>
+      </div>
+    </div>
+  </div>
+  <div id="keys">
+    <div class="key" id="k1">⌃</div><div class="key" id="k2">⇧</div>
+    <div class="key" id="k3">Space</div><div class="key keyret" id="k4">↩</div>
+  </div>
+  <div id="saved"><span class="tick">✓</span> Saved</div>
+  <div class="cap" id="capD1" style="top: 1660px;">"Wait... what if we just cache the response?"</div>
+  <div id="cursor">
+    <svg width="40" height="50" viewBox="0 0 34 42">
+      <path d="M6 2 L6 32 L14 25 L19 37 L25 34.5 L20 23 L29 22.5 Z"
+            fill="rgba(255,255,255,.95)" stroke="rgba(0,0,0,.65)" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="vignette"></div>
+  <div class="film-grain"></div>
+  <div id="fade"></div>
+</div>
+
+<script>
+const EASE = {
+  out: t => 1 - Math.pow(1 - t, 3),
+  expoOut: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  in: t => t * t,
+  inout: t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2,
+  back: t => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2); },
+  linear: t => t,
+};
+const chains = new Map(), tweens = [], states = new Map();
+function st(el){
+  if (!states.has(el)) states.set(el, {
+    o: parseFloat(getComputedStyle(el).opacity),
+    x: 0, y: 0, s: 1, b: 0, pr: 0, tp: 0, orb: null, conv: 0, turn: 0,
+    base: getComputedStyle(el).transform,
+    baseblur: (() => { const m = /blur\((([0-9.]+)px)\)/.exec(getComputedStyle(el).filter); return m ? parseFloat(m[2]) : 0; })(),
+  });
+  return states.get(el);
+}
+function T(sel, prop, keys, ease){
+  document.querySelectorAll(sel).forEach(el => {
+    const k = el.__twid || (el.__twid = Math.random().toString(36).slice(2));
+    const m = chains.get(el) || new Map();
+    const merged = m.has(prop) ? m.get(prop).concat(keys).sort((a,b) => a[0]-b[0]) : keys.slice();
+    m.set(prop, merged);
+    chains.set(el, m);
+    tweens.push({el, prop, keys: merged, ease: ease || "out"});
+    const s = st(el); if (!(prop in s)) s[prop] = keys[0][1];
+  });
+}
+function apply(t){
+  for (const tw of tweens){
+    const ks = tw.keys, s = states.get(tw.el);
+    let v = ks[ks.length-1][1];
+    if (t <= ks[0][0]) v = ks[0][1];
+    else if (t < ks[ks.length-1][0]){
+      for (let k = 0; k < ks.length-1; k++){
+        const [t0,v0] = ks[k], [t1,v1] = ks[k+1];
+        if (t >= t0 && t <= t1){ v = v0 + (v1-v0) * EASE[tw.ease]((t-t0)/(t1-t0)); break; }
+      }
+    }
+    s[tw.prop] = v;
+  }
+  states.forEach((s, el) => {
+    el.style.opacity = s.o;
+    const ty = (s.y || 0) + (s.pr || 0) * 6;
+    const base = s.base && s.base !== "none" ? s.base + " " : "";
+    if (s.orb != null){
+      const a = s.orb, cv = s.conv, R = 380;
+      const ox = Math.cos(a) * R, oy = Math.sin(a) * 210, oz = Math.sin(a + 1.3) * 460;
+      const bl = Math.min(9, Math.abs(oz) / 460 * 8) * (1-cv);
+      el.style.transform = `translate3d(${ox*(1-cv)}px, ${oy*(1-cv)}px, ${oz*(1-cv)}px) rotateY(${(el.__ry||0)*(1-cv)}deg)`;
+      el.style.filter = bl > 0.4 ? `blur(${bl.toFixed(1)}px)` : "none";
+      return;
+    }
+    el.style.transform = base + `translate(${s.x || 0}px, ${ty}px) scale(${s.s == null ? 1 : s.s}) rotate(${s.turn || 0}deg)`;
+    const f = [];
+    const bl = (s.b || 0) + (s.baseblur || 0);
+    if (bl) f.push(`blur(${bl.toFixed(1)}px)`);
+    if (s.pr) f.push(`brightness(${1 - s.pr * 0.2})`);
+    el.style.filter = f.length ? f.join(" ") : "none";
+    if (el.dataset.text != null && s.tp != null){
+      const n = Math.round(el.dataset.text.length * Math.max(0, Math.min(1, s.tp)));
+      el.textContent = el.dataset.text.slice(0, n);
+    }
+  });
+}
+
+function buildTimeline(){
+  /* ---- ROOM phases ---- */
+  const push = [[0,1],[6.4,1.14],[7.1,3.4],[13.4,3.4],[14.4,1.05],[15.1,3.2],[15.9,3.2],[22.5,1.02],[27.4,1.14],[28.2,3.3],[28.5,3.3]];
+  T("#room", "s", push, "inout");
+  T("#room", "y", [[0,0],[6.4,-30],[7.1,-90],[13.4,-90],[14.4,0],[15.1,-80],[15.9,-80],[22.9,-80],[27.4,0],[28.2,-90],[28.5,-90]], "inout");
+  T("#scRoom", "o", [[0,0],[0.55,1],[7.05,1],[7.4,0],[13.45,0],[13.8,1],[15.95,1],[16.25,0],[22.85,0],[23.2,1],[28.15,1],[28.5,0]]);
+  T("#night", "o", [[23.0,0],[23.8,0.78],[28.1,0.78],[28.45,0]]);
+  T("#miniMeet", "o", [[14.3,0],[14.9,1],[22.6,1],[23.1,0]]);
+  T("#miniCode", "o", [[14.3,1],[14.9,0],[23.1,0],[23.6,1]]);
+  T("#miniPlay", "o", [[22.95,0],[23.5,1],[28.3,1]]);
+  T("#miniCode", "o", [[28.3,1],[28.5,0]]);
+  T("#person", "y", [[0,0],[6.3,8],[6.9,0],[13.4,0],[14.2,4],[16.3,0],[19.5,3],[23.0,0],[27.2,5],[27.9,0]], "inout");
+  T("#phead", "turn", [[5.2,0],[5.9,1],[6.8,1],[7.4,0],[15.9,0],[16.6,1],[17.3,0],[19.3,0],[20.1,1],[20.9,0],[23.1,0],[24.6,1],[25.6,0]], "inout");
+  T("#phead", "y", [[5.9,0],[6.4,10],[7.2,10],[7.6,0]], "inout");
+  // screen glow breathes with the scenes
+  T(".screenshine", "o", [[8.3,0.4],[9.4,1],[11.9,1],[12.6,0.5],[16.9,0.6],[18.9,1],[19.6,0.5],[23.4,0.35],[28.2,0.9],[29.4,1],[30.6,0.6]]);
+
+  /* dialogue captions + focus pulls */
+  T("#capD1", "o", [[0.8,0],[1.2,1],[5.0,1],[5.5,0]]);
+  T("#scRoom", "b", [[0,0],[10.0,0],[10.25,12],[12.4,12],[12.9,0],[21.0,0],[21.25,10],[22.5,10],[22.9,0],[28.15,0],[28.4,10],[30.3,10],[30.7,0]]);
+
+  /* zoom into editor */
+  T("#scEditor", "o", [[6.85,0],[7.25,1],[13.55,1],[13.85,0]]);
+  T("#scEditor", "s", [[7.0,1.05],[13.5,1]], "inout");
+
+  /* thought glows, narrator */
+  T("#ideaGlow", "o", [[7.45,0],[7.9,1],[8.65,1],[9.05,0]]);
+  T("#ktBtw", "o", [[11.85,0],[12.1,1],[12.95,1],[13.3,0]]);
+  T("#ktBtw", "x", [[11.85,430],[12.4,0]], "out");
+  T("#ktBtw", "b", [[12.95,0],[13.3,7]], "in");
+
+  /* MAGIC 8.9-13.4 */
+  T("#wave", "x", [[8.95,-420],[9.55,1500]]);
+  T("#wave", "o", [[8.95,0],[9.1,0.85],[9.5,0]]);
+  T("#k1", "pr", [[9.12,0],[9.24,1],[9.4,0]]);
+  T("#k2", "pr", [[9.3,0],[9.42,1],[9.58,0]]);
+  T("#k3", "pr", [[9.48,0],[9.6,1],[9.76,0]]);
+  T("#keys", "o", [[8.95,0],[9.15,1],[11.55,1],[11.85,0]]);
+  T("#keys", "y", [[8.95,-30],[9.3,0]], "back");
+  T("#panel", "o", [[9.85,0],[10.3,1],[12.45,1],[12.7,0]]);
+  T("#panel", "y", [[9.85,-90],[10.35,0]], "out");
+  T("#panel", "s", [[9.85,0.93],[10.35,1]], "out");
+  T("#ghost2", "o", [[9.85,0.7],[10.3,0]], "out");
+  T("#ty1", "tp", [[10.2,0],[11.7,1]], "linear");
+  T("#ty1", "tp", [[12.55,0]]);
+  T("#k4", "pr", [[11.92,0],[12.05,1],[12.23,0]]);
+  T("#k4", "o", [[9.15,0.4],[11.88,1],[12.25,0.4]]);
+  T("#saved", "o", [[12.07,0],[12.35,1],[12.75,1],[13.0,0]]);
+  T("#saved", "s", [[12.07,0.82],[12.35,1]], "back");
+
+  /* MEETING 15.9-23.0 */
+  T("#scMeeting", "o", [[15.85,0],[16.4,1],[22.75,1],[23.0,0]]);
+  T("#ring1", "o", [[15.9,1],[18.4,1],[19.0,0]]);
+  T("#wave", "x", [[20.2,-420],[20.8,1500]]);
+  T("#wave", "o", [[20.2,0],[20.35,0.85],[20.75,0]]);
+  T("#k1", "pr", [[20.22,0],[20.34,1],[20.5,0]]);
+  T("#k2", "pr", [[20.4,0],[20.52,1],[20.68,0]]);
+  T("#k3", "pr", [[20.58,0],[20.7,1],[20.86,0]]);
+  T("#keys", "o", [[20.15,0],[20.35,1],[22.35,1],[22.6,0]]);
+  T("#panel", "o", [[21.0,0],[21.35,1],[22.55,1],[22.8,0]]);
+  T("#panel", "y", [[21.0,-70],[21.45,0]], "out");
+  T("#ty2", "tp", [[21.35,0],[22.15,1]], "linear");
+  T("#ty2", "tp", [[22.9,0]]);
+  T("#k4", "pr", [[22.36,0],[22.48,1],[22.66,0]]);
+  T("#k4", "o", [[20.15,0.4],[22.32,1],[22.7,0.4]]);
+  T("#saved", "o", [[22.42,0],[22.65,1],[22.9,0]]);
+  T("#saved", "s", [[22.42,0.82],[22.65,1]], "back");
+
+  /* NIGHT + capture 23.0-30.6 */
+  T("#scLife", "o", [[28.1,0],[28.5,1],[30.45,1],[30.7,0]]);
+  T("#wave", "x", [[28.15,-420],[28.75,1500]]);
+  T("#wave", "o", [[28.15,0],[28.3,0.85],[28.7,0]]);
+  T("#k1", "pr", [[28.32,0],[28.44,1],[28.6,0]]);
+  T("#k2", "pr", [[28.5,0],[28.62,1],[28.78,0]]);
+  T("#k3", "pr", [[28.68,0],[28.8,1],[28.96,0]]);
+  T("#keys", "o", [[28.15,0],[28.35,1],[29.95,1],[30.2,0]]);
+  T("#panel", "o", [[29.0,0],[29.4,1],[30.4,1],[30.65,0]]);
+  T("#panel", "y", [[29.0,-70],[29.5,0]], "out");
+  T("#ty3", "tp", [[29.3,0],[30.05,1]], "linear");
+  T("#ty3", "tp", [[30.55,0]]);
+  T("#k4", "pr", [[30.17,0],[30.29,1],[30.47,0]]);
+  T("#k4", "o", [[28.35,0.4],[30.13,1],[30.5,0.4]]);
+  T("#saved", "o", [[30.32,0],[30.5,1],[30.7,0]]);
+
+  /* MONTAGE 30.75-33.85 */
+  const shots = [
+    { bd: "#mDbg", ty: "#ty4", t: 30.78, dur: 1.02 },
+    { bd: "#mDsg", ty: "#ty5", t: 31.83, dur: 1.02 },
+    { bd: "#mCht", ty: "#ty6", t: 32.88, dur: 1.02 },
+  ];
+  shots.forEach(sh => {
+    T(sh.bd, "o", [[sh.t - 0.12,0],[sh.t + 0.08,1],[sh.t + sh.dur - 0.12,1],[sh.t + sh.dur,0]]);
+    T(sh.ty, "tp", [[sh.t + 0.15,0],[sh.t + 0.6,1]], "linear");
+    T(sh.ty, "tp", [[sh.t + sh.dur + 0.02,0]]);
+    T("#k1", "pr", [[sh.t + 0.1,0],[sh.t + 0.2,1],[sh.t + 0.34,0]]);
+    T("#k3", "pr", [[sh.t + 0.34,0],[sh.t + 0.44,1],[sh.t + 0.58,0]]);
+    T("#keys", "o", [[sh.t + 0.06,0],[sh.t + 0.16,1],[sh.t + 0.72,1],[sh.t + 0.9,0]]);
+    T("#panel", "o", [[sh.t + 0.12,0],[sh.t + 0.26,1],[sh.t + 0.74,1],[sh.t + 0.9,0]]);
+    T("#panel", "y", [[sh.t + 0.12,-50],[sh.t + 0.3,0]], "out");
+    T("#k4", "pr", [[sh.t + 0.66,0],[sh.t + 0.76,1],[sh.t + 0.9,0]]);
+    T("#k4", "o", [[sh.t + 0.12,0.4],[sh.t + 0.62,1],[sh.t + 0.92,0.4]]);
+    T("#saved", "o", [[sh.t + 0.74,0],[sh.t + 0.86,1],[sh.t + 0.99,0]]);
+  });
+
+  /* UNIVERSE 33.85-38.0 */
+  T("#scUniverse", "o", [[33.85,0],[34.35,1],[37.75,1],[38.05,0]]);
+  const cards = [
+    ["#u1", 1.0, 0.0], ["#u2", 1.15, 0.9], ["#u3", 0.9, 1.8], ["#u4", 1.25, 2.6],
+    ["#u5", 1.05, 3.3], ["#u6", 1.2, 4.1],
+  ];
+  cards.forEach(([sel, rx, ph]) => {
+    el0(sel).__ry = rx * 38;
+    T(sel, "orb", [[33.15, ph],[36.35, ph + 2.4 * Math.PI]], "linear");
+    T(sel, "conv", [[36.35,0],[37.05,1]], "inout");
+    T(sel, "o", [[33.1,0],[33.6,1],[37.35,1],[37.6,0]]);
+  });
+  T("#ktThink", "o", [[34.0,0],[34.5,1],[35.2,1],[35.5,0]]);
+  T("#ktCapture", "o", [[35.4,0],[35.8,1],[36.25,1],[36.5,0]]);
+  T("#ktCapture", "s", [[35.4,1.15],[36.5,0.55]], "inout");
+  T("#ktCont", "o", [[36.4,0],[36.75,1],[37.3,1],[37.6,0]]);
+  T("#ktCont", "x", [[36.75,-240],[37.3,240]], "inout");
+  T("#appreveal", "o", [[36.85,0],[37.15,1],[38.0,1]]);
+
+  /* PRIVACY 38.0-41.3 */
+  T("#scPrivacy", "o", [[38.0,0],[38.5,1],[41.1,1],[41.4,0]]);
+  T("#macbook", "s", [[38.0,0.94],[41.3,1.0]], "inout");
+  T("#macbook", "y", [[38.0,30],[41.3,-14]], "inout");
+  T("#ktStay1", "o", [[38.7,0],[39.3,1],[40.9,1],[41.2,0]]);
+  T("#ktStay1", "y", [[38.7,24],[39.3,0]]);
+  T("#ktStay2", "o", [[40.0,0],[40.5,1],[40.9,1],[41.2,0]]);
+
+  /* FINAL 41.3-46 */
+  T("#scFinal", "o", [[41.3,0],[41.8,1],[45.5,1],[45.75,0]]);
+  T("#fh .fpanel", "o", [[41.45,0],[41.9,1]]);
+  T("#fh .fpanel", "s", [[41.45,0.94],[42.0,1]], "back");
+  T("#fblink", "o", [[41.9,1],[42.4,0.15],[42.9,1],[43.4,0.15],[43.9,1],[44.4,0.15],[44.9,1]]);
+  T("#fWord", "o", [[42.95,0],[43.55,1]]);
+  T("#fWord", "y", [[42.95,22],[43.55,0]]);
+  T("#fTag", "o", [[43.75,0],[44.45,1]]);
+  T("#fTag", "y", [[43.75,24],[44.45,0]]);
+  T("#keysrow", "o", [[44.55,0],[45.05,1]]);
+  T("#keysrow", "y", [[44.55,20],[45.05,0]]);
+  T("#fFree", "o", [[45.15,0],[45.6,1]]);
+  T("#fade", "o", [[45.35,0],[45.85,0.75],[46,0.75]]);
+  T("#logo", "o", [[45.55,0],[45.95,1]]);
+
+  /* cursor */
+  T("#cursor", "o", [
+    [8.1,0],[8.35,1],[12.0,1],[12.35,0],
+    [20.1,0],[20.35,1],[22.75,1],[23.05,0],
+    [28.1,0],[28.35,1],[30.5,1],[30.75,0]]);
+  T("#cursor", "x", [
+    [8.1,1180],[8.45,640],[8.7,610],[10.0,600],[11.2,630],[11.7,660],[12.1,700],[12.5,760],
+    [20.1,1160],[20.45,640],[20.75,615],[21.9,605],[22.35,640],[22.75,700],
+    [28.1,1160],[28.45,640],[28.75,615],[29.9,605],[30.25,640],[30.6,700]], "inout");
+  T("#cursor", "y", [
+    [8.1,1700],[8.45,940],[8.7,960],[10.0,980],[11.2,1000],[11.7,1030],[12.1,1070],[12.5,1120],
+    [20.1,1700],[20.45,880],[20.75,900],[21.9,920],[22.35,950],[22.75,1000],
+    [28.1,1700],[28.45,890],[28.75,910],[29.9,930],[30.25,960],[30.6,1000]], "inout");
+}
+function el0(sel){ return document.querySelector(sel); }
+window.buildTimeline = buildTimeline;
+window.apply = apply;
+window.ready = (async () => {
+  await document.fonts.ready;
+  await Promise.all(Array.from(document.images).map(im => im.complete ? null : new Promise(r => { im.onload = im.onerror = r; })));
+})();
+</script>
+</body>
+</html>
